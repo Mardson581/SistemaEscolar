@@ -24,6 +24,11 @@ public class DbEscolar : DbContext
             .HasForeignKey(p => p.ProfessorId)
             .OnDelete(DeleteBehavior.SetNull);
 
+        modelBuilder.Entity<Turma>()
+            .HasMany(t => t.Alunos)
+            .WithOne(a => a.Turma)
+            .HasForeignKey(a => a.IdTurma);
+
         modelBuilder.Entity<Escola>()
             .HasOne(e => e.Secretario)
             .WithMany(s => s.Escolas)
@@ -40,9 +45,5 @@ public class DbEscolar : DbContext
             .WithMany(e => e.Turmas)
             .HasForeignKey(t => t.EscolaId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<Aluno>().HasData(
-            new Aluno{ IdAluno = 1, Nome = "Mardson", RA = 123123, Nascimento = DateTime.Now, Matricula = DateTime.Now}
-        );
     }
 }

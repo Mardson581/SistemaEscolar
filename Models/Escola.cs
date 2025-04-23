@@ -16,5 +16,4 @@ public class Escola
     public long SecretarioId { get; set; }
     public Diretor Diretor { get; set; }
     public long DiretorId { get; set; }
-
 }

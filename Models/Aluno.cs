@@ -10,4 +10,6 @@ public class Aluno
     public long RA { get; set; }
     public DateTime Nascimento { get; set; }
     public DateTime Matricula { get; set; }
+    public Turma Turma { get; set; }
+    public long IdTurma { get; set; }
 }
