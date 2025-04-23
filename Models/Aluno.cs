@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SistemaEscolar.Models;
 
 public class Aluno
 {
+    [Key]
     public long IdAluno { get; set; }
     public string Nome { get; set; }
     public long RA { get; set; }
