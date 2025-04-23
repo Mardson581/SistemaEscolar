@@ -1,0 +1,13 @@
+namespace SistemaEscolar.Models;
+
+public class Escola
+{
+    public long IdEscola { get; set; }
+    public string Nome { get; set; }
+    public string CEP { get; set; }
+    public string Municipio { get; set; }
+    public string Telefone { get; set; }
+    public string Endereco { get; set; }
+    public List<Turma> Turmas { get; set; }
+    public Secretario Secretario { get; set; }
+}
