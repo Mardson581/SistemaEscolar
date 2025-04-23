@@ -1,6 +1,4 @@
-Build started...
-Build succeeded.
-CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+﻿CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
     "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
     "ProductVersion" TEXT NOT NULL
 );
@@ -84,4 +82,83 @@ VALUES ('20250423034618_InitialCreate', '8.0.15');
 
 COMMIT;
 
+BEGIN TRANSACTION;
+
+DROP INDEX "IX_Turmas_ProfessorId";
+
+DROP INDEX "IX_Alunos_TurmaIdTurma";
+
+DELETE FROM "Alunos"
+WHERE "IdAluno" = 1;
+SELECT changes();
+
+
+ALTER TABLE "Alunos" ADD "IdTurma" INTEGER NOT NULL DEFAULT 0;
+
+CREATE TABLE "ProfessorTurma" (
+    "ProfessoresUsuarioId" INTEGER NOT NULL,
+    "TurmasIdTurma" INTEGER NOT NULL,
+    CONSTRAINT "PK_ProfessorTurma" PRIMARY KEY ("ProfessoresUsuarioId", "TurmasIdTurma"),
+    CONSTRAINT "FK_ProfessorTurma_Professores_ProfessoresUsuarioId" FOREIGN KEY ("ProfessoresUsuarioId") REFERENCES "Professores" ("UsuarioId") ON DELETE CASCADE,
+    CONSTRAINT "FK_ProfessorTurma_Turmas_TurmasIdTurma" FOREIGN KEY ("TurmasIdTurma") REFERENCES "Turmas" ("IdTurma") ON DELETE CASCADE
+);
+
+CREATE INDEX "IX_Alunos_IdTurma" ON "Alunos" ("IdTurma");
+
+CREATE INDEX "IX_ProfessorTurma_TurmasIdTurma" ON "ProfessorTurma" ("TurmasIdTurma");
+
+CREATE TABLE "ef_temp_Alunos" (
+    "IdAluno" INTEGER NOT NULL CONSTRAINT "PK_Alunos" PRIMARY KEY AUTOINCREMENT,
+    "IdTurma" INTEGER NOT NULL,
+    "Matricula" TEXT NOT NULL,
+    "Nascimento" TEXT NOT NULL,
+    "Nome" TEXT NULL,
+    "RA" INTEGER NOT NULL,
+    CONSTRAINT "FK_Alunos_Turmas_IdTurma" FOREIGN KEY ("IdTurma") REFERENCES "Turmas" ("IdTurma") ON DELETE CASCADE
+);
+
+INSERT INTO "ef_temp_Alunos" ("IdAluno", "IdTurma", "Matricula", "Nascimento", "Nome", "RA")
+SELECT "IdAluno", "IdTurma", "Matricula", "Nascimento", "Nome", "RA"
+FROM "Alunos";
+
+CREATE TABLE "ef_temp_Turmas" (
+    "IdTurma" INTEGER NOT NULL CONSTRAINT "PK_Turmas" PRIMARY KEY AUTOINCREMENT,
+    "Ano" INTEGER NOT NULL,
+    "EscolaId" INTEGER NOT NULL,
+    "Nome" TEXT NULL,
+    CONSTRAINT "FK_Turmas_Escolas_EscolaId" FOREIGN KEY ("EscolaId") REFERENCES "Escolas" ("IdEscola") ON DELETE RESTRICT
+);
+
+INSERT INTO "ef_temp_Turmas" ("IdTurma", "Ano", "EscolaId", "Nome")
+SELECT "IdTurma", "Ano", "EscolaId", "Nome"
+FROM "Turmas";
+
+COMMIT;
+
+PRAGMA foreign_keys = 0;
+
+BEGIN TRANSACTION;
+
+DROP TABLE "Alunos";
+
+ALTER TABLE "ef_temp_Alunos" RENAME TO "Alunos";
+
+DROP TABLE "Turmas";
+
+ALTER TABLE "ef_temp_Turmas" RENAME TO "Turmas";
+
+COMMIT;
+
+PRAGMA foreign_keys = 1;
+
+BEGIN TRANSACTION;
+
+CREATE INDEX "IX_Alunos_IdTurma" ON "Alunos" ("IdTurma");
+
+CREATE INDEX "IX_Turmas_EscolaId" ON "Turmas" ("EscolaId");
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20250423164627_AdicionandoProfessorTurmaNparaN', '8.0.15');
+
+COMMIT;
 

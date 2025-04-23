@@ -19,10 +19,8 @@ public class DbEscolar : DbContext
         base.OnModelCreating(modelBuilder);
         
         modelBuilder.Entity<Turma>()
-            .HasOne(t => t.Professor)
-            .WithMany(p => p.Turmas)
-            .HasForeignKey(p => p.ProfessorId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .HasMany(t => t.Professores)
+            .WithMany(p => p.Turmas);
 
         modelBuilder.Entity<Turma>()
             .HasMany(t => t.Alunos)

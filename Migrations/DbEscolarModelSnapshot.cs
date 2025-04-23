@@ -40,10 +40,28 @@ namespace SistemaEscolar.Migrations
                     b.ToTable("Diretores");
                 });
 
+            modelBuilder.Entity("ProfessorTurma", b =>
+                {
+                    b.Property<long>("ProfessoresUsuarioId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("TurmasIdTurma")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProfessoresUsuarioId", "TurmasIdTurma");
+
+                    b.HasIndex("TurmasIdTurma");
+
+                    b.ToTable("ProfessorTurma");
+                });
+
             modelBuilder.Entity("SistemaEscolar.Models.Aluno", b =>
                 {
                     b.Property<long>("IdAluno")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("IdTurma")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Matricula")
@@ -58,24 +76,11 @@ namespace SistemaEscolar.Migrations
                     b.Property<long>("RA")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("TurmaIdTurma")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("IdAluno");
 
-                    b.HasIndex("TurmaIdTurma");
+                    b.HasIndex("IdTurma");
 
                     b.ToTable("Alunos");
-
-                    b.HasData(
-                        new
-                        {
-                            IdAluno = 1L,
-                            Matricula = new DateTime(2025, 4, 23, 3, 46, 18, 228, DateTimeKind.Local).AddTicks(3269),
-                            Nascimento = new DateTime(2025, 4, 23, 3, 46, 18, 228, DateTimeKind.Local).AddTicks(3246),
-                            Nome = "Mardson",
-                            RA = 123123L
-                        });
                 });
 
             modelBuilder.Entity("SistemaEscolar.Models.Escola", b =>
@@ -176,23 +181,37 @@ namespace SistemaEscolar.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("ProfessorId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("IdTurma");
 
                     b.HasIndex("EscolaId");
 
-                    b.HasIndex("ProfessorId");
-
                     b.ToTable("Turmas");
+                });
+
+            modelBuilder.Entity("ProfessorTurma", b =>
+                {
+                    b.HasOne("SistemaEscolar.Models.Professor", null)
+                        .WithMany()
+                        .HasForeignKey("ProfessoresUsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaEscolar.Models.Turma", null)
+                        .WithMany()
+                        .HasForeignKey("TurmasIdTurma")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaEscolar.Models.Aluno", b =>
                 {
-                    b.HasOne("SistemaEscolar.Models.Turma", null)
+                    b.HasOne("SistemaEscolar.Models.Turma", "Turma")
                         .WithMany("Alunos")
-                        .HasForeignKey("TurmaIdTurma");
+                        .HasForeignKey("IdTurma")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Turma");
                 });
 
             modelBuilder.Entity("SistemaEscolar.Models.Escola", b =>
@@ -222,15 +241,7 @@ namespace SistemaEscolar.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SistemaEscolar.Models.Professor", "Professor")
-                        .WithMany("Turmas")
-                        .HasForeignKey("ProfessorId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
                     b.Navigation("Escola");
-
-                    b.Navigation("Professor");
                 });
 
             modelBuilder.Entity("Diretor", b =>
@@ -239,11 +250,6 @@ namespace SistemaEscolar.Migrations
                 });
 
             modelBuilder.Entity("SistemaEscolar.Models.Escola", b =>
-                {
-                    b.Navigation("Turmas");
-                });
-
-            modelBuilder.Entity("SistemaEscolar.Models.Professor", b =>
                 {
                     b.Navigation("Turmas");
                 });
