@@ -1,0 +1,88 @@
+body {
+    background: linear-gradient(to bottom, #e3eaf1, #7b7bad);
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .logo {
+    color: #003377;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .logo h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .logo h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+
+  .logo p {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+
+  .exit-icon {
+    font-size: 1.4rem;
+    color: #003377;
+    cursor: pointer;
+  }
+
+  .content-box {
+    background-color: #003377;
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .form-control {
+    border-radius: 0;
+  }
+
+  .school-link {
+    display: block;
+    border: 1px solid white;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .school-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+  }
+
+  .search-icon {
+    font-size: 1.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }

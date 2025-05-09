@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ferramenta META Consultoria Educacional</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/alterarAlunoTurma.css">
+
+</head>
+<body>
+
+  <div class="container">
+    <!-- Top bar -->
+    <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
+      <div class="logo">
+        <h1>LOGO</h1>
+        <h2>META</h2>
+        <p>CONSULTORIA EDUCACIONAL</p>
+      </div>
+      <h4 class="text-center flex-grow-1 mt-2 fw-bold" style="color:#3b3b3b;">BARIRI - E.M JOÃO GONÇALVES</h4>
+      <div class="exit-icon ms-auto mt-2">&#x21B7;</div>
+    </div>
+
+    <!-- Navigation tabs -->
+    <ul class="nav nav-tabs nav-tabs-custom justify-content-center mb-3" id="navTabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">DIRETOR</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">ALUNOS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">PROFESSORES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">TURMAS</a>
+      </li>
+    </ul>
+
+   <!-- Card principal -->
+   <div class="card-custom">
+    <div class="row mb-3">
+      <div class="col-md-4 col-12">
+        <label class="form-label">Nome:</label>
+      </div>
+      <div class="col-md-8 col-12">
+        <div class="info-box">Marcio Edgard Da cunha</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4 col-12">
+        <label class="form-label">Data de nascimento:</label>
+      </div>
+      <div class="col-md-8 col-12">
+        <div class="info-box">14/05/2016</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4 col-12">
+        <label class="form-label">RA:</label>
+      </div>
+      <div class="col-md-8 col-12">
+        <div class="info-box">12447864</div>
+      </div>
+    </div>
+
+    <div class="row align-items-center mb-4">
+      <div class="col-md-4 col-12">
+        <label class="form-label">Turma:</label>
+      </div>
+      <div class="col-md-8 col-12">
+        <select class="form-select">
+          <option selected>2 ano A</option>
+          <option>2 ano B</option>
+          <option>2 ano C</option>
+        </select>
+      </div>
+    </div>
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#modalAlterar">ALTERAR TURMA</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal Alterar -->
+    <div class="modal fade" id="modalAlterar" tabindex="-1" aria-labelledby="modalAlterarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+          <h5 class="modal-title fw-bold mb-3" id="modalAlterarLabel">Tem certeza que deseja alterar?</h5>
+          <h4 class="fw-bold mb-4">Maria Silvana Da Aparecida</h4>
+          <p class="fw-semibold">Essa ação será permanente!</p>
+          <div class="mt-4">
+            <button type="button" class="btn btn-warning fw-bold px-4">ALTERAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div> <!-- fim container -->
+
+  <script src="./js/alterarAlunoTurma.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

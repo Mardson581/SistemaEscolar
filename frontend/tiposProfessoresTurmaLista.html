@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ferramenta META Consultoria Educacional</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/tiposProfessoresTurmaLista.css">
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="logo">
+        <div>LOGO<br>META</div>
+        <div class="small text-uppercase" style="letter-spacing: 1px;">Consultoria Educacional</div>
+      </div>
+      <div class="text-center flex-grow-1">
+        <h4 class="fw-bold text-uppercase">Bariri - E.M João Gonçalves - 2 ano A</h4>
+      </div>
+      <div>
+        <a href="#" class="btn text-primary fs-4">&#x21ba;</a>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <!-- Navigation tabs -->
+    <ul class="nav nav-tabs nav-tabs-custom justify-content-center mb-3" id="navTabs">
+        <li class="nav-item">
+          <a class="nav-link" href="#">DIRETOR</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">ALUNOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#">PROFESSORES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">TURMAS</a>
+        </li>
+      </ul>
+
+    <!-- Card com Professores -->
+    <div class="card-custom mb-4">
+      <div class="mb-3">
+        <label for="professorFundamental1" class="form-label">Professor até 5º ano:</label>
+        <select class="form-select" id="professorFundamental1">
+          <option value="">Selecione</option>
+          <option>Maria Silvana D. Aparecida</option>
+          <option>João da Silva</option>
+          <option>Carla Fernandes</option>
+          <option>Nenhum</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="professorMatematica" class="form-label">Professor de Matemática:</label>
+        <select class="form-select" id="professorMatematica">
+          <option value="">Selecione</option>
+          <option>Rodrigo Matos</option>
+          <option>Ana Paula Ribeiro</option>
+          <option>Nenhum</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="professorPortugues" class="form-label">Professor de Português:</label>
+        <select class="form-select" id="professorPortugues">
+          <option value="">Selecione</option>
+          <option>Fernanda Costa</option>
+          <option>Bruno Oliveira</option>
+          <option>Nenhum</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#modalAlterar">ALTERAR</button>
+    </div>
+
+     
+    <!-- Modal Alterar -->
+    <div class="modal fade" id="modalAlterar" tabindex="-1" aria-labelledby="modalAlterarLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-center p-4">
+            <h5 class="modal-title fw-bold mb-3" id="modalAlterarLabel">Tem certeza que deseja alterar?</h5>
+            <h4 class="fw-bold mb-4">Maria Silvana Da Aparecida</h4>
+            <p class="fw-semibold">Essa ação será permanente!</p>
+            <div class="mt-4">
+              <button type="button" class="btn btn-warning fw-bold px-4">ALTERAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Pesquisa e Alunos -->
+    <!-- Search and content -->
+    <div class="content-box">
+        <!-- Search -->
+        <div class="row g-2 align-items-center mb-4">
+          <div class="col-12 col-md-2">
+            <label for="search" class="form-label fw-bold text-white">Pesquisa:</label>
+          </div>
+          <div class="col-12 col-md-10 d-flex align-items-center">
+            <input type="text" class="form-control w-100" id="search" placeholder="Digite o nome...">
+            <span class="search-icon-outside">🔍</span>
+          </div>
+        </div>
+  
+        <!-- Title -->
+        <h5 class="text-center fw-bold mb-3">Alunos</h5>
+  
+        <!-- Professores list -->
+        <a href="#" class="list-link">Luis Henrique De Oliveira</a>
+        <a href="#" class="list-link">Junior Fabiano Da Silva</a>
+      </div>
+    </div>
+  
+    <!-- JavaScript to handle active tab -->
+    <script>
+      const tabs = document.querySelectorAll('#navTabs .nav-link');
+  
+      tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent page jump
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+        });
+      });
+    </script>
+
+  </div>
+  <script src="./js/tiposProfessoresTurmaLista.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

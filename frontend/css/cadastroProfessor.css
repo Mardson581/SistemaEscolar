@@ -1,0 +1,152 @@
+body {
+    background: linear-gradient(to bottom, #e3eaf1, #7b7bad);
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  .logo h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 400;
+    color: #003377;
+  }
+
+  .logo h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 400;
+    color: #003377;
+  }
+
+  .logo p {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin: 0;
+    color: #003377;
+  }
+
+  .exit-icon {
+    font-size: 1.4rem;
+    color: #003377;
+    cursor: pointer;
+  }
+
+  .nav-tabs-custom {
+    background-color: #003377;
+    border-radius: 10px 10px 0 0;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .nav-tabs-custom .nav-link {
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    padding: 12px 20px;
+  }
+
+  .nav-tabs-custom .nav-link.active {
+    background-color: #002860;
+    border: 1px solid white;
+  }
+
+  .content-box {
+    background-color: #003377;
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .form-control {
+    border-radius: 0;
+  }
+
+  .search-icon-outside {
+    font-size: 1.4rem;
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .list-link {
+    display: block;
+    border: 1px solid white;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .list-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    margin-top: 2rem;
+  }
+  .btn-yellow {
+    background-color: #ffd84f;
+    font-weight: bold;
+    color: #003366;
+  }
+  .btn-red {
+    background-color: #ff3d3d;
+    font-weight: bold;
+    color: #003366;
+  }
+  
+  .nav-tabs .nav-link.active {
+    background-color: #04306e;
+    color: white;
+  }
+  .nav-tabs .nav-link {
+    color: white;
+  }
+  .nav-tabs {
+    background-color: #04306e;
+    border-bottom: none;
+  }
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #04306e;
+  }
+  .card-custom {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .btn-yellow {
+    background-color: #ffdd57;
+    color: #04306e;
+    font-weight: bold;
+  }
