@@ -43,5 +43,29 @@ public class DbEscolar : DbContext
             .WithMany(e => e.Turmas)
             .HasForeignKey(t => t.EscolaId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // Populando o banco de dados para teste
+        modelBuilder.Entity<Diretor>().HasData (
+            new Diretor{ UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456"}
+        );
+
+        modelBuilder.Entity<Secretario>().HasData (
+            new Secretario{ UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456"}
+        );
+
+        modelBuilder.Entity<Escola>().HasData(
+            new Escola { 
+                IdEscola = 1,
+                Nome = "Escola Teste",
+                CEP = "12315808",
+                Municipio = "Teste",
+                Endereco = "Nada",
+                DiretorId = 1,
+                SecretarioId = 1
+            }
+        );
+        modelBuilder.Entity<Turma>().HasData(
+            new Turma{ IdTurma = 1, Nome = "1º Ano", Ano = 2025, EscolaId = 1}
+        );
     }
 }

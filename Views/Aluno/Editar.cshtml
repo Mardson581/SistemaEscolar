@@ -1,4 +1,4 @@
-@model IEnumerable<SistemaEscolar.Models.Turma>
+@model SistemaEscolar.Models.Aluno;
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -39,64 +39,54 @@
     </ul>
 
     <div class="container text-center my-4">
-      <h1 class="fw-bold text-uppercase">Cadastro de Aluno</h1>
+      <h1 class="fw-bold text-uppercase">Editar Cadastro de Aluno</h1>
     </div>
 
     <div class="container form-container">
-      <form action="/aluno/create" method="POST">
+      <form action="/aluno/editar" method="POST">
         <!-- ID -->
         <div class="mb-3">
             <label class="form-label">ID:</label>
-            <input type="tel" class="form-control" value="22" name="IdAluno">
+            <input type="text" class="form-control" disabled="true" value="@Model.IdAluno" name="IdAluno">
           </div>
 
         <!-- Nome -->
         <div class="mb-3">
           <label class="form-label">Nome:</label>
-          <input type="text" class="form-control" value="Maria Silvana Da Aparecida" name="Nome">
+          <input type="text" class="form-control" value="@Model.Nome" name="Nome">
         </div>
         
         <!-- data de nascimento -->
         <div class="mb-3">
           <label class="form-label">Data de Nascimento:</label>
-          <input type="date" class="form-control" name="Nascimento">
+          <input type="date" class="form-control" value="@Model.Nascimento" name="Nascimento">
         </div>
 
         <!-- data de matricula -->
         <div class="mb-3">
           <label class="form-label">Data da Matrícula:</label>
-          <input type="date" class="form-control" name="Matricula">
+          <input type="date" class="form-control" value="@Model.Matricula" name="Matricula">
         </div>
 
         <!-- Turma pelo ID -->
         <div class="mb-3">
           <label class="form-label">Turma:</label>
           <select name="IdTurma">
-            @foreach (var turma in Model)
-            {
-                <option value="@turma.IdTurma">@turma.Nome</option>
-            }
+            <option value="@Model.Turma.IdTurma">@Model.Turma.Nome</option>
           </select>
         </div>
 
         <!-- RA -->
         <div class="mb-3">
           <label class="form-label">RA:</label>
-          <input type="ra" class="form-control" value="JO0123489" name="RA">
+          <input type="ra" class="form-control" value="@Model.RA" name="RA">
         </div>
-
-        <!-- deficiencia -->
-        <div class="mb-3">
-            <label class="form-label">Deficiência:</label>
-            <input type="text" class="form-control" value="Autista grau I">
-          </div>
-
     
         <!-- Botões -->
         <div class="d-flex justify-content-end gap-2">
           <button type="button" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#modalAlterar">ALTERAR</button>
           <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalExcluir">EXCLUIR</button>
-          <input type="submit" class="btn btn-outline-info" value="CADASTRAR">
+          <input type="submit" class="btn btn-outline-info" value="ATUALIZAR">
         </div>
       </form>
     </div>
