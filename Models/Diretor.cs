@@ -1,4 +1,4 @@
-using SistemaEscolar.Models;
+namespace SistemaEscolar.Models;
 
 public class Diretor : Usuario
 {
