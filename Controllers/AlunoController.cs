@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaEscolar.Data;
 using SistemaEscolar.Models;
 
+namespace SistemaEscolar.Controllers;
+
 public class AlunoController : Controller
 {
     private DbEscolar db;
@@ -21,8 +23,7 @@ public class AlunoController : Controller
         return View(turmas);
     }
 
-    [Route("/aluno/editar/{id}")]
-    public ActionResult Editar(long? id)
+    public ActionResult Editar(long id)
     {
         if (id == null)
             return NotFound();

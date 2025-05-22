@@ -1,74 +1,45 @@
-@model IEnumerable<SistemaEscolar.Models.Aluno>
+@model List<SistemaEscolar.Models.Municipio>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ferramenta META Consultoria Educacional</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./css/municipio.css">
+  <link rel="stylesheet" href="/css/municipio.css">
 
 </head>
+
 <body>
 
   <div class="container">
     <div class="topbar">
       <div class="logo">
-        <h1>LOGO</h1>
-        <h2>META</h2>
-        <p>CONSULTORIA EDUCACIONAL</p>
+        <img src="/images/logo.png" alt="GED">
       </div>
       <h3 class="text-center flex-grow-1">Escolha o município que deseja administrar</h3>
       <div class="icon-exit">&#x21B7;</div>
     </div>
-
     <div class="row g-4">
-      <div class="col-12 col-sm-6 col-md-4"></div>
-        <div class="card-municipio">
-          <div class="card-top">Bariri</div>
-          <div class="card-bottom">15 Escolas</div>
-        </div>
-      </div>
-      
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="card-municipio">
-          <div class="card-top">Bariri</div>
-          <div class="card-bottom">15 Escolas</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="card-municipio">
-          <div class="card-top">São José do Rio Preto</div>
-          <div class="card-bottom">30 Escolas</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="card-municipio">
-          <div class="card-top">São Tomás de Aquino</div>
-          <div class="card-bottom">5 Escolas</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="card-municipio">
-          <div class="card-top">Ipiguá</div>
-          <div class="card-bottom">10 Escolas</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="card-municipio">
-          <div class="card-top">Cedral</div>
-          <div class="card-bottom">13 Escolas</div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <div class="card-municipio">
-          <div class="card-top">Uchoa</div>
-          <div class="card-bottom">9 Escolas</div>
-        </div>
-      </div>
+    @if (Model != null)
+    {
+      foreach (var municipio in Model)
+      {
+        
+          <div class="col-12 col-sm-6 col-md-4">
+            <a href="/municipio/@municipio.IdMunicipio" class="card-municipio">
+              <div class="card-top">@municipio.Nome</div>
+              <div class="card-bottom">@municipio.Escolas.Count()</div>
+            </a>
+          </div>
+      }
+    }
     </div>
+  </div>
   </div>
   <script src="./js/municipio.js"></script>
 
 </body>
+
 </html>

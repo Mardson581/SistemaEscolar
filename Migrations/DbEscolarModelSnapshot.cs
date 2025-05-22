@@ -17,39 +17,6 @@ namespace SistemaEscolar.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.15");
 
-            modelBuilder.Entity("Diretor", b =>
-                {
-                    b.Property<long>("UsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Senha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefone")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UsuarioId");
-
-                    b.ToTable("Diretores");
-
-                    b.HasData(
-                        new
-                        {
-                            UsuarioId = 1L,
-                            Email = "dezani@email.com",
-                            Nome = "Dezani",
-                            Senha = "123456",
-                            Telefone = "1799999999"
-                        });
-                });
-
             modelBuilder.Entity("ProfessorTurma", b =>
                 {
                     b.Property<long>("ProfessoresUsuarioId")
@@ -93,6 +60,39 @@ namespace SistemaEscolar.Migrations
                     b.ToTable("Alunos");
                 });
 
+            modelBuilder.Entity("SistemaEscolar.Models.Diretor", b =>
+                {
+                    b.Property<long>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Senha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UsuarioId");
+
+                    b.ToTable("Diretores");
+
+                    b.HasData(
+                        new
+                        {
+                            UsuarioId = 1L,
+                            Email = "dezani@email.com",
+                            Nome = "Dezani",
+                            Senha = "123456",
+                            Telefone = "1799999999"
+                        });
+                });
+
             modelBuilder.Entity("SistemaEscolar.Models.Escola", b =>
                 {
                     b.Property<long>("IdEscola")
@@ -108,8 +108,8 @@ namespace SistemaEscolar.Migrations
                     b.Property<string>("Endereco")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Municipio")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("MunicipioId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
@@ -125,6 +125,8 @@ namespace SistemaEscolar.Migrations
                     b.HasIndex("DiretorId")
                         .IsUnique();
 
+                    b.HasIndex("MunicipioId");
+
                     b.HasIndex("SecretarioId");
 
                     b.ToTable("Escolas");
@@ -136,9 +138,30 @@ namespace SistemaEscolar.Migrations
                             CEP = "12315808",
                             DiretorId = 1L,
                             Endereco = "Nada",
-                            Municipio = "Teste",
+                            MunicipioId = 1L,
                             Nome = "Escola Teste",
                             SecretarioId = 1L
+                        });
+                });
+
+            modelBuilder.Entity("SistemaEscolar.Models.Municipio", b =>
+                {
+                    b.Property<long>("IdMunicipio")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdMunicipio");
+
+                    b.ToTable("Municipios");
+
+                    b.HasData(
+                        new
+                        {
+                            IdMunicipio = 1L,
+                            Nome = "São José do Rio Preto"
                         });
                 });
 
@@ -257,10 +280,16 @@ namespace SistemaEscolar.Migrations
 
             modelBuilder.Entity("SistemaEscolar.Models.Escola", b =>
                 {
-                    b.HasOne("Diretor", "Diretor")
+                    b.HasOne("SistemaEscolar.Models.Diretor", "Diretor")
                         .WithOne("Escola")
                         .HasForeignKey("SistemaEscolar.Models.Escola", "DiretorId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaEscolar.Models.Municipio", "Municipio")
+                        .WithMany("Escolas")
+                        .HasForeignKey("MunicipioId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("SistemaEscolar.Models.Secretario", "Secretario")
@@ -270,6 +299,8 @@ namespace SistemaEscolar.Migrations
                         .IsRequired();
 
                     b.Navigation("Diretor");
+
+                    b.Navigation("Municipio");
 
                     b.Navigation("Secretario");
                 });
@@ -285,7 +316,7 @@ namespace SistemaEscolar.Migrations
                     b.Navigation("Escola");
                 });
 
-            modelBuilder.Entity("Diretor", b =>
+            modelBuilder.Entity("SistemaEscolar.Models.Diretor", b =>
                 {
                     b.Navigation("Escola");
                 });
@@ -293,6 +324,11 @@ namespace SistemaEscolar.Migrations
             modelBuilder.Entity("SistemaEscolar.Models.Escola", b =>
                 {
                     b.Navigation("Turmas");
+                });
+
+            modelBuilder.Entity("SistemaEscolar.Models.Municipio", b =>
+                {
+                    b.Navigation("Escolas");
                 });
 
             modelBuilder.Entity("SistemaEscolar.Models.Secretario", b =>

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using SistemaEscolar.Models;
 
 namespace SistemaEscolar.Controllers;
 

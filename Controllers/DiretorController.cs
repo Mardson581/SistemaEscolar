@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaEscolar.Models;
 using SistemaEscolar.Data;
 
+namespace SistemaEscolar.Controllers;
+
 public class DiretorController : Controller
 {
     private DbEscolar db;

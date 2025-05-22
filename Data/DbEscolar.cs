@@ -13,11 +13,12 @@ public class DbEscolar : DbContext
     public DbSet<Diretor> Diretores { get; set;}
     public DbSet<Escola> Escolas { get; set; }
     public DbSet<Turma> Turmas { get; set; }
+    public DbSet<Municipio> Municipios{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
+
         modelBuilder.Entity<Turma>()
             .HasMany(t => t.Professores)
             .WithMany(p => p.Turmas);
@@ -44,28 +45,41 @@ public class DbEscolar : DbContext
             .HasForeignKey(t => t.EscolaId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<Escola>()
+            .HasOne(e => e.Municipio)
+            .WithMany(m => m.Escolas)
+            .HasForeignKey(e => e.MunicipioId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         // Populando o banco de dados para teste
-        modelBuilder.Entity<Diretor>().HasData (
-            new Diretor{ UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456"}
+        modelBuilder.Entity<Diretor>().HasData(
+            new Diretor { UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456" }
         );
 
-        modelBuilder.Entity<Secretario>().HasData (
-            new Secretario{ UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456"}
+        modelBuilder.Entity<Secretario>().HasData(
+            new Secretario { UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456" }
+        );
+
+        Municipio municipio = new Municipio { Nome = "São José do Rio Preto", IdMunicipio = 1 };
+
+        modelBuilder.Entity<Municipio>().HasData(
+            municipio
         );
 
         modelBuilder.Entity<Escola>().HasData(
-            new Escola { 
+            new Escola
+            {
                 IdEscola = 1,
                 Nome = "Escola Teste",
                 CEP = "12315808",
-                Municipio = "Teste",
+                MunicipioId = 1,
                 Endereco = "Nada",
                 DiretorId = 1,
                 SecretarioId = 1
             }
         );
         modelBuilder.Entity<Turma>().HasData(
-            new Turma{ IdTurma = 1, Nome = "1º Ano", Ano = 2025, EscolaId = 1}
+            new Turma { IdTurma = 1, Nome = "1º Ano", Ano = 2025, EscolaId = 1 }
         );
     }
 }
