@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaEscolar.Data;
 
@@ -10,9 +11,11 @@ using SistemaEscolar.Data;
 namespace SistemaEscolar.Migrations
 {
     [DbContext(typeof(DbEscolar))]
-    partial class DbEscolarModelSnapshot : ModelSnapshot
+    [Migration("20250523135207_Adicionando Estados")]
+    partial class AdicionandoEstados
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.15");
@@ -41,10 +44,10 @@ namespace SistemaEscolar.Migrations
                     b.Property<long>("IdTurma")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Matricula")
+                    b.Property<DateTime>("Matricula")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Nascimento")
+                    b.Property<DateTime>("Nascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")

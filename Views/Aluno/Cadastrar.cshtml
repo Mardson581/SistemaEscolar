@@ -2,6 +2,7 @@
 
 @{
   Layout="~/Views/Shared/_CadastrarLayout.cshtml";
+  ViewBag.NomeMunicipio = "";
 }
 
 @section CSS {
@@ -13,17 +14,11 @@
 </div>
 
 <div class="container form-container">
-  <form action="/aluno/create" method="POST">
-    <!-- ID -->
-    <div class="mb-3">
-      <label class="form-label">ID:</label>
-      <input type="tel" class="form-control" value="22" name="IdAluno">
-    </div>
-
+  <form action="./create" method="POST">
     <!-- Nome -->
     <div class="mb-3">
       <label class="form-label">Nome:</label>
-      <input type="text" class="form-control" value="Maria Silvana Da Aparecida" name="Nome">
+      <input type="text" class="form-control" name="Nome">
     </div>
 
     <!-- data de nascimento -->
@@ -52,52 +47,21 @@
     <!-- RA -->
     <div class="mb-3">
       <label class="form-label">RA:</label>
-      <input type="ra" class="form-control" value="JO0123489" name="RA">
+      <input type="ra" class="form-control" name="RA">
     </div>
 
     <!-- deficiencia -->
     <div class="mb-3">
       <label class="form-label">Deficiência:</label>
-      <input type="text" class="form-control" value="Autista grau I">
+      <input type="text" class="form-control">
     </div>
 
 
     <!-- Botões -->
     <div class="d-flex justify-content-end gap-2">
-      <button type="button" class="btn btn-yellow" data-bs-toggle="modal"
-        data-bs-target="#modalAlterar">ALTERAR</button>
-      <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalExcluir">EXCLUIR</button>
       <input type="submit" class="btn btn-outline-info" value="CADASTRAR">
     </div>
   </form>
-</div>
-
-<!-- Modal Alterar -->
-<div class="modal fade" id="modalAlterar" tabindex="-1" aria-labelledby="modalAlterarLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-4">
-      <h5 class="modal-title fw-bold mb-3" id="modalAlterarLabel">Tem certeza que deseja alterar?</h5>
-      <h4 class="fw-bold mb-4">Maria Silvana Da Aparecida</h4>
-      <p class="fw-semibold">Essa ação será permanente!</p>
-      <div class="mt-4">
-        <button type="button" class="btn btn-warning fw-bold px-4">ALTERAR</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Excluir -->
-<div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-4">
-      <h5 class="modal-title fw-bold mb-3" id="modalExcluirLabel">Tem certeza que deseja excluir?</h5>
-      <h4 class="fw-bold mb-4">Maria Silvana Da Aparecida</h4>
-      <p class="fw-semibold">Essa ação será permanente!</p>
-      <div class="mt-4">
-        <button type="button" class="btn btn-danger fw-bold px-4">EXCLUIR</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 @section Scripts {

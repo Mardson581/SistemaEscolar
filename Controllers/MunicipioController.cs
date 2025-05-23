@@ -24,6 +24,32 @@ public class MunicipioController : Controller
 
     public ActionResult Detalhes(long id)
     {
+        Municipio municipio = 
+            db.Municipios
+            .Include(m => m.Escolas)
+            .FirstOrDefault(m => m.IdMunicipio == id);
+
+        if (municipio == null) {
+            return RedirectToAction("Index");
+        }
+
+        ViewBag.Title = municipio.Nome;
+        return View(municipio);
+    }
+
+    [HttpGet]
+    public ActionResult Cadastrar()
+    {
+        ViewBag.Title = "Cadastro de Municípios";
         return View();
+    }
+
+    [HttpPost]
+    public ActionResult Cadastrar(Municipio municipio)
+    {
+        db.Municipios.Add(municipio);
+        db.SaveChanges();
+        ViewBag.Message = "Municipio cadastrado com sucesso";
+        return RedirectToAction("Index");
     }
 }

@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
   <div class="container">
     <div class="topbar">
       <div class="logo">
@@ -22,22 +21,25 @@
       <div class="icon-exit">&#x21B7;</div>
     </div>
     <div class="row g-4">
-    @if (Model != null)
-    {
-      foreach (var municipio in Model)
+      @if (Model != null)
       {
-        
+        foreach (var municipio in Model)
+        {
+
           <div class="col-12 col-sm-6 col-md-4">
-            <a href="/municipio/@municipio.IdMunicipio" class="card-municipio">
+            <a href="/municipio/detalhes/@municipio.IdMunicipio" class="card-municipio">
               <div class="card-top">@municipio.Nome</div>
               <div class="card-bottom">@municipio.Escolas.Count()</div>
             </a>
           </div>
+        }
       }
-    }
     </div>
   </div>
   </div>
+
+  <a style="max-width: fit-content; padding: 10px" href="/municipio/cadastrar"
+    class="fixed-bottom start-50 left-50 translate-middle btn btn-primary">CADASTRAR NOVO MUNICÍPIO</a>
   <script src="./js/municipio.js"></script>
 
 </body>

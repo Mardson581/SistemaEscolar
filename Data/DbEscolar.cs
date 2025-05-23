@@ -60,10 +60,8 @@ public class DbEscolar : DbContext
             new Secretario { UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456" }
         );
 
-        Municipio municipio = new Municipio { Nome = "São José do Rio Preto", IdMunicipio = 1 };
-
         modelBuilder.Entity<Municipio>().HasData(
-            municipio
+            new Municipio { Nome = "São José do Rio Preto", Estado = "SP", IdMunicipio = 1 }
         );
 
         modelBuilder.Entity<Escola>().HasData(
