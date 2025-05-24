@@ -21,8 +21,11 @@ public class AlunoController : Controller
                 a.Turma.Escola.MunicipioId == municipioId &&
                 a.Turma.EscolaId == escolaId
             );
-        ViewBag.MunicipioId = municipioId;
-        ViewBag.EscolaId = escolaId;
+        ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
+        ViewBag.NomeEscola = 
+            db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome +
+            " - " +
+            db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId).Nome;            ;
 
         return View(alunos);
     }
@@ -38,15 +41,42 @@ public class AlunoController : Controller
         return View(turmas);
     }
 
-    public ActionResult Editar(long id)
+    [HttpGet]
+    public ActionResult Editar(long municipioId, long escolaId, long id)
     {
         Aluno aluno = db.Alunos
             .Include(a => a.Turma)
             .First(a => a.IdAluno == id);
         if (aluno == null)
             return NotFound();
-        
+
+        ViewBag.MunicipioId = municipioId;
+        ViewBag.EscolaId = escolaId;
+
         return View(aluno);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(long municipioId, long escolaId, Aluno aluno)
+    {
+        db.Alunos.Update(aluno);
+        db.SaveChanges();
+        
+        ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome;
+        return Redirect($"/municipio/{municipioId}/escola/{escolaId}/aluno/");
+    }
+
+    public ActionResult Deletar(long municipioId, long escolaId, long id)
+    {
+        Aluno aluno = db.Alunos.FirstOrDefault(a => a.IdAluno == id);
+        if (aluno == null)
+            return NotFound();
+
+        db.Alunos.Remove(aluno);
+        db.SaveChanges();
+        
+        ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome;
+        return Redirect($"/municipio/{municipioId}/escola/{escolaId}/aluno/");
     }
 
     [HttpPost]

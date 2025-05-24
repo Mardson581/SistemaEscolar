@@ -18,7 +18,7 @@
             <div class="logo">
                 <img src="/images/logo.png" alt="GED">
             </div>
-            <h4 class="text-center mt-2 fw-bold" style="color:#3b3b3b;">BARIRI - E.M JOÃO GONÇALVES</h4>
+            <h4 class="text-center mt-2 fw-bold" style="color:#3b3b3b;">@ViewBag.NomeEscola</h4>
         </div>
 
         <!-- Navigation tabs -->
@@ -27,7 +27,7 @@
                 <a class="nav-link" href="/diretor/">DIRETOR</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/aluno/">ALUNOS</a>
+                <a class="nav-link" href="@ViewBag.UrlBase/aluno">ALUNOS</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/professor/">PROFESSORES</a>

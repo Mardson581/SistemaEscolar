@@ -13,11 +13,11 @@
 </div>
 
 <div class="container form-container">
-  <form action="/aluno/editar" method="POST">
+  <form action="." method="POST">
     <!-- ID -->
     <div class="mb-3">
       <label class="form-label">ID:</label>
-      <input type="text" class="form-control" disabled="true" value="@Model.IdAluno" name="IdAluno">
+      <input type="text" class="form-control" readonly value="@Model.IdAluno" name="IdAluno">
     </div>
 
     <!-- Nome -->
@@ -29,13 +29,13 @@
     <!-- data de nascimento -->
     <div class="mb-3">
       <label class="form-label">Data de Nascimento:</label>
-      <input type="date" class="form-control" value="@Model.Nascimento" name="Nascimento">
+      <input type="date" class="form-control" value="@Model.Nascimento.ToString("yyyy-MM-dd")" name="Nascimento">
     </div>
 
     <!-- data de matricula -->
     <div class="mb-3">
       <label class="form-label">Data da Matrícula:</label>
-      <input type="date" class="form-control" value="@Model.Matricula" name="Matricula">
+      <input type="date" class="form-control" value="@Model.Matricula.ToString("yyyy-MM-dd")" name="Matricula">
     </div>
 
     <!-- Turma pelo ID -->
@@ -54,26 +54,10 @@
 
     <!-- Botões -->
     <div class="d-flex justify-content-end gap-2">
-      <button type="button" class="btn btn-yellow" data-bs-toggle="modal"
-        data-bs-target="#modalAlterar">ALTERAR</button>
       <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalExcluir">EXCLUIR</button>
-      <input type="submit" class="btn btn-outline-info" value="ATUALIZAR">
+      <input type="submit" class="btn btn-info" value="ATUALIZAR">
     </div>
   </form>
-</div>
-
-<!-- Modal Alterar -->
-<div class="modal fade" id="modalAlterar" tabindex="-1" aria-labelledby="modalAlterarLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-4">
-      <h5 class="modal-title fw-bold mb-3" id="modalAlterarLabel">Tem certeza que deseja alterar?</h5>
-      <h4 class="fw-bold mb-4">Maria Silvana Da Aparecida</h4>
-      <p class="fw-semibold">Essa ação será permanente!</p>
-      <div class="mt-4">
-        <button type="button" class="btn btn-warning fw-bold px-4">ALTERAR</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- Modal Excluir -->
@@ -81,10 +65,10 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4">
       <h5 class="modal-title fw-bold mb-3" id="modalExcluirLabel">Tem certeza que deseja excluir?</h5>
-      <h4 class="fw-bold mb-4">Maria Silvana Da Aparecida</h4>
+      <h4 class="fw-bold mb-4">@Model.Nome</h4>
       <p class="fw-semibold">Essa ação será permanente!</p>
       <div class="mt-4">
-        <button type="button" class="btn btn-danger fw-bold px-4">EXCLUIR</button>
+        <button id="deleteButton" type="button" class="btn btn-danger fw-bold px-4">EXCLUIR</button>
       </div>
     </div>
   </div>
@@ -93,4 +77,14 @@
 
 @section Scripts {
   <script src="/js/cadastroAlunos.js"></script>
+
+  <script>
+    function deleteAluno() {
+      let form = document.getElementsByTagName("form")[0];
+      form.action = "@ViewBag.UrlBase/aluno/deletar/@Model.IdAluno/";
+      form.method = "DELETE";
+      form.submit();
+    }
+    document.getElementById("deleteButton").addEventListener("click", deleteAluno);
+  </script>
 }

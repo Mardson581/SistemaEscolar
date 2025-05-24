@@ -10,12 +10,12 @@
 
 @foreach (var aluno in Model)
 {
-  <a href="/municipio/@ViewBag.MunicipioId/escola/@ViewBag.EscolaId/aluno/editar/@aluno.IdAluno" class="list-link">@aluno.Nome</a>
+  <a href="@ViewBag.UrlBase/aluno/editar/@aluno.IdAluno" class="list-link">@aluno.Nome</a>
 }
 
 @if (Model.Count() == 0) {
     <p style="text-align: center">Nenhum aluno foi cadastrado ainda!</p>
 }
 
-<a style="max-width: fit-content; padding: 10px" href="/municipio/@ViewBag.MunicipioId/escola/@ViewBag.EscolaId/aluno/cadastrar"
+<a style="max-width: fit-content; padding: 10px" href="@ViewBag.UrlBase/aluno/cadastrar"
     class="fixed-bottom start-50 left-50 translate-middle btn btn-primary">CADASTRAR NOVO ALUNO</a>
