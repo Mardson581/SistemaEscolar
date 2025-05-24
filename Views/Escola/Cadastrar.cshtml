@@ -1,0 +1,59 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/cadastroAlunos.css">
+}
+
+<div class="container form-container">
+    <form action="/municipio/@ViewBag.IdMunicipio/escola/cadastrar" method="POST">
+        <!-- Nome -->
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input type="text" class="form-control" placeholder="Nome da Escola" name="Nome" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">CEP:</label>
+            <input type="tel" class="form-control" pattern="[0-9]{5}\-[0-9]{3}" placeholder="xxxx-xxx" name="CEP"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" placeholder="(xx)9xxxx-xxxx"
+                pattern="\([0-9]{2}\) 9[0-9]{4}\-[0-9]{4}" name="Telefone" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Secretário:</label>
+            <select name="SecretarioId">
+                @foreach (var secretario in ViewBag.Secretarios)
+                {
+                    <option value="@secretario.UsuarioId">@secretario.Nome</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Diretor:</label>
+            <select name="SecretarioId">
+                @foreach (var diretor in ViewBag.Diretores)
+                {
+                    <option value="@diretor.UsuarioId">@diretor.Nome</option>
+                }
+            </select>
+        </div>
+</div>
+
+<!-- Botões -->
+<div class="d-flex justify-content-end gap-2">
+    <input type="submit" class="btn btn-outline-info" value="CADASTRAR">
+</div>
+</form>
+</div>

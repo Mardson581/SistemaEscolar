@@ -8,6 +8,7 @@ namespace SistemaEscolar.Controllers;
 public class MunicipioController : Controller
 {
     private DbEscolar db;
+    
     public MunicipioController(DbEscolar db)
     {
         this.db = db;
@@ -34,6 +35,7 @@ public class MunicipioController : Controller
         }
 
         ViewBag.Title = municipio.Nome;
+        ViewBag.IdMunicipio = id;
         return View(municipio);
     }
 
