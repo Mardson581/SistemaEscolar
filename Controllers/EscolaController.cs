@@ -23,8 +23,7 @@ public class EscolaController : Controller
 
         ViewBag.Diretores = db.Diretores
             .Include(d => d.Escola)
-            .Where(d => d.Escola == null)
-            .ToList();
+            .Where(d => d.Escola == null);
         return View();
     }
 }

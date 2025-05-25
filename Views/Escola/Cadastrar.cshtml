@@ -33,6 +33,7 @@
         <div class="mb-3">
             <label class="form-label">Secretário:</label>
             <select name="SecretarioId">
+                <option value="">Nenhum</option>
                 @foreach (var secretario in ViewBag.Secretarios)
                 {
                     <option value="@secretario.UsuarioId">@secretario.Nome</option>
@@ -42,7 +43,8 @@
 
         <div class="mb-3">
             <label class="form-label">Diretor:</label>
-            <select name="SecretarioId">
+            <select name="DiretorId">
+                <option value="">Nenhum</option>
                 @foreach (var diretor in ViewBag.Diretores)
                 {
                     <option value="@diretor.UsuarioId">@diretor.Nome</option>

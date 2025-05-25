@@ -3,37 +3,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SistemaEscolar.Migrations
 {
     /// <inheritdoc />
-    public partial class CorrigindoMunicipio : Migration
+    public partial class AdicionandoDiscriminator : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Diretores",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Telefone = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Senha = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Diretores", x => x.UsuarioId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Municipios",
                 columns: table => new
                 {
                     IdMunicipio = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true)
+                    Nome = table.Column<string>(type: "TEXT", nullable: true),
+                    Estado = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,7 +28,7 @@ namespace SistemaEscolar.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Professores",
+                name: "Usuario",
                 columns: table => new
                 {
                     UsuarioId = table.Column<long>(type: "INTEGER", nullable: false)
@@ -49,27 +36,12 @@ namespace SistemaEscolar.Migrations
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
                     Telefone = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Senha = table.Column<string>(type: "TEXT", nullable: true)
+                    Senha = table.Column<string>(type: "TEXT", nullable: true),
+                    TipoUsuario = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Professores", x => x.UsuarioId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Secretarios",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<long>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    Telefone = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Senha = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Secretarios", x => x.UsuarioId);
+                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,20 +62,20 @@ namespace SistemaEscolar.Migrations
                 {
                     table.PrimaryKey("PK_Escolas", x => x.IdEscola);
                     table.ForeignKey(
-                        name: "FK_Escolas_Diretores_DiretorId",
-                        column: x => x.DiretorId,
-                        principalTable: "Diretores",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Escolas_Municipios_MunicipioId",
                         column: x => x.MunicipioId,
                         principalTable: "Municipios",
                         principalColumn: "IdMunicipio");
                     table.ForeignKey(
-                        name: "FK_Escolas_Secretarios_SecretarioId",
+                        name: "FK_Escolas_Usuario_DiretorId",
+                        column: x => x.DiretorId,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_Escolas_Usuario_SecretarioId",
                         column: x => x.SecretarioId,
-                        principalTable: "Secretarios",
+                        principalTable: "Usuario",
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.SetNull);
                 });
@@ -137,8 +109,8 @@ namespace SistemaEscolar.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: true),
                     RA = table.Column<long>(type: "INTEGER", nullable: false),
-                    Nascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Matricula = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Nascimento = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    Matricula = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     IdTurma = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -163,33 +135,32 @@ namespace SistemaEscolar.Migrations
                 {
                     table.PrimaryKey("PK_ProfessorTurma", x => new { x.ProfessoresUsuarioId, x.TurmasIdTurma });
                     table.ForeignKey(
-                        name: "FK_ProfessorTurma_Professores_ProfessoresUsuarioId",
-                        column: x => x.ProfessoresUsuarioId,
-                        principalTable: "Professores",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ProfessorTurma_Turmas_TurmasIdTurma",
                         column: x => x.TurmasIdTurma,
                         principalTable: "Turmas",
                         principalColumn: "IdTurma",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProfessorTurma_Usuario_ProfessoresUsuarioId",
+                        column: x => x.ProfessoresUsuarioId,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Diretores",
-                columns: new[] { "UsuarioId", "Email", "Nome", "Senha", "Telefone" },
-                values: new object[] { 1L, "dezani@email.com", "Dezani", "123456", "1799999999" });
-
-            migrationBuilder.InsertData(
                 table: "Municipios",
-                columns: new[] { "IdMunicipio", "Nome" },
-                values: new object[] { 1L, "São José do Rio Preto" });
+                columns: new[] { "IdMunicipio", "Estado", "Nome" },
+                values: new object[] { 1L, "SP", "São José do Rio Preto" });
 
             migrationBuilder.InsertData(
-                table: "Secretarios",
-                columns: new[] { "UsuarioId", "Email", "Nome", "Senha", "Telefone" },
-                values: new object[] { 1L, "dezani@email.com", "Dezani", "123456", "1799999999" });
+                table: "Usuario",
+                columns: new[] { "UsuarioId", "Email", "Nome", "Senha", "Telefone", "TipoUsuario" },
+                values: new object[,]
+                {
+                    { 1L, "dezani@email.com", "Dezani", "123456", "1799999999", "Diretor" },
+                    { 2L, "dezani@email.com", "Dezani", "123456", "1799999999", "Secretario" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Escolas",
@@ -243,22 +214,16 @@ namespace SistemaEscolar.Migrations
                 name: "ProfessorTurma");
 
             migrationBuilder.DropTable(
-                name: "Professores");
-
-            migrationBuilder.DropTable(
                 name: "Turmas");
 
             migrationBuilder.DropTable(
                 name: "Escolas");
 
             migrationBuilder.DropTable(
-                name: "Diretores");
-
-            migrationBuilder.DropTable(
                 name: "Municipios");
 
             migrationBuilder.DropTable(
-                name: "Secretarios");
+                name: "Usuario");
         }
     }
 }

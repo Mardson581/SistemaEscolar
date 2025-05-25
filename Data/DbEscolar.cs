@@ -19,6 +19,12 @@ public class DbEscolar : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Usuario>()
+            .HasDiscriminator<string>("TipoUsuario")
+            .HasValue<Diretor>("Diretor")
+            .HasValue<Secretario>("Secretario")
+            .HasValue<Professor>("Professor");
+
         modelBuilder.Entity<Turma>()
             .HasMany(t => t.Professores)
             .WithMany(p => p.Turmas);
@@ -37,7 +43,8 @@ public class DbEscolar : DbContext
         modelBuilder.Entity<Diretor>()
             .HasOne(d => d.Escola)
             .WithOne(e => e.Diretor)
-            .HasForeignKey<Escola>(e => e.DiretorId);
+            .HasForeignKey<Escola>(e => e.DiretorId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         modelBuilder.Entity<Turma>()
             .HasOne(t => t.Escola)
@@ -57,7 +64,7 @@ public class DbEscolar : DbContext
         );
 
         modelBuilder.Entity<Secretario>().HasData(
-            new Secretario { UsuarioId = 1, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456" }
+            new Secretario { UsuarioId = 2, Nome = "Dezani", Telefone = "1799999999", Email = "dezani@email.com", Senha = "123456" }
         );
 
         modelBuilder.Entity<Municipio>().HasData(
