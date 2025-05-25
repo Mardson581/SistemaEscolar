@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaEscolar.Data;
+using SistemaEscolar.Models;
 
 namespace SistemaEscolar.Controllers;
 
@@ -25,5 +26,14 @@ public class EscolaController : Controller
             .Include(d => d.Escola)
             .Where(d => d.Escola == null);
         return View();
+    }
+
+    [HttpPost]
+    public ActionResult Cadastrar(long idMunicipio, Escola escola)
+    {
+        escola.MunicipioId = idMunicipio;
+        db.Escolas.Add(escola);
+        db.SaveChanges();
+        return Redirect($"/municipio/detalhes/{idMunicipio}");
     }
 }

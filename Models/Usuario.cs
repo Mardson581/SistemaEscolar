@@ -15,6 +15,9 @@ public abstract class Usuario
     public string Telefone { get; set; }
 
     [Required]
+    public DateOnly Nascimento { get; set; }
+
+    [Required]
     [RegularExpression("^\\w+@\\w+.\\w.\\w?")]
     public string Email { get; set; }
 

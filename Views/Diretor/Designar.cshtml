@@ -1,0 +1,32 @@
+@model IEnumerable<SistemaEscolar.Models.Diretor>;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Designar diretor disponível para " + ViewBag.NomeEscola;
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/cadastroAlunos.css">
+}
+
+<div class="container form-container">
+    <form action="/municipio/cadastrar" method="POST">
+        <!-- Nome -->
+        <div class="mb-3">
+            <label class="form-label">Diretor:</label>
+            <select name="idDiretor" id="idDiretor">
+                <option value="">Nenhum</option>
+                @foreach (var diretor in Model)
+                {
+                    <option value="@diretor.UsuarioId">@diretor.Nome</option>
+                }
+            </select>
+        </div>
+
+
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+            <input type="submit" class="btn btn-outline-info" value="DESIGNAR">
+        </div>
+    </form>
+</div>

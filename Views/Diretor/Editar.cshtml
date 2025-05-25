@@ -1,0 +1,90 @@
+@model SistemaEscolar.Models.Diretor;
+
+@{
+    Layout = "~/Views/Shared/_CadastrarLayout.cshtml";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/cadastroAlunos.css">
+}
+
+<div class="container text-center my-4">
+    <h1 class="fw-bold text-uppercase">Editar Cadastro de Diretor</h1>
+</div>
+
+<div class="container form-container">
+    <form action="." method="POST">
+        <!-- ID -->
+        <div class="mb-3">
+            <label class="form-label">ID:</label>
+            <input type="text" class="form-control" readonly value="@Model.UsuarioId" name="UsuarioId">
+        </div>
+
+        <!-- Nome -->
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input type="text" class="form-control" value="@Model.Nome" name="Nome">
+        </div>
+
+        <!-- Data de nascimento -->
+        <div class="mb-3">
+            <label class="form-label">Data de Nascimento:</label>
+            <input type="date" class="form-control" value="@Model.Nascimento.ToString("yyyy-MM-dd")" name="Nascimento">
+        </div>
+
+        <!-- Telefone -->
+        <div class="mb-3">
+            <label class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" placeholder="(xx)9xxxx-xxxx"
+                pattern="\([0-9]{2}\) 9[0-9]{4}\-[0-9]{4}" name="Telefone" value="@Model.Telefone">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control" placeholder="usuario@email.com" name="Email" value="@Model.Email">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label class="form-label">Senha:</label>
+            <input type="password" class="form-control" placeholder="Mínimo 8 caracteres" name="Senha" value="@Model.Senha">
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-red" data-bs-toggle="modal"
+                data-bs-target="#modalExcluir">EXCLUIR</button>
+            <input type="submit" class="btn btn-info" value="ATUALIZAR">
+        </div>
+    </form>
+</div>
+
+<!-- Modal Excluir -->
+<div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+            <h5 class="modal-title fw-bold mb-3" id="modalExcluirLabel">Tem certeza que deseja excluir?</h5>
+            <h4 class="fw-bold mb-4">@Model.Nome</h4>
+            <p class="fw-semibold">Essa ação será permanente!</p>
+            <div class="mt-4">
+                <button id="deleteButton" type="button" class="btn btn-danger fw-bold px-4">EXCLUIR</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div> <!-- fim container -->
+
+@section Scripts {
+    <script src="/js/cadastroAlunos.js"></script>
+
+    <script>
+        function deleteAluno() {
+            let form = document.getElementsByTagName("form")[0];
+            form.action = "@ViewBag.UrlBase/aluno/deletar/@Model.UsuarioId/";
+            form.method = "DELETE";
+            form.submit();
+        }
+        document.getElementById("deleteButton").addEventListener("click", deleteAluno);
+    </script>
+}

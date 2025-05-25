@@ -38,6 +38,7 @@ public class AlunoController : Controller
                 t.Escola.MunicipioId == municipioId &&
                 t.EscolaId == escolaId
             );
+        ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
         return View(turmas);
     }
 
@@ -50,6 +51,7 @@ public class AlunoController : Controller
         if (aluno == null)
             return NotFound();
 
+        ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
         ViewBag.MunicipioId = municipioId;
         ViewBag.EscolaId = escolaId;
 
@@ -62,6 +64,7 @@ public class AlunoController : Controller
         db.Alunos.Update(aluno);
         db.SaveChanges();
         
+        ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
         ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome;
         return Redirect($"/municipio/{municipioId}/escola/{escolaId}/aluno/");
     }
@@ -75,15 +78,8 @@ public class AlunoController : Controller
         db.Alunos.Remove(aluno);
         db.SaveChanges();
         
+        ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
         ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome;
         return Redirect($"/municipio/{municipioId}/escola/{escolaId}/aluno/");
-    }
-
-    [HttpPost]
-    public ActionResult Create(Aluno aluno)
-    {
-        db.Alunos.Add(aluno);
-        db.SaveChanges();
-        return RedirectToAction("Index", "Aluno");
     }
 }

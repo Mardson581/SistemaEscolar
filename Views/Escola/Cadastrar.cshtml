@@ -2,10 +2,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 @section CSS {
     <link rel="stylesheet" href="/css/cadastroAlunos.css">
 }
@@ -31,6 +27,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Endereço:</label>
+            <input type="text" class="form-control" placeholder="Endereço da Escola" name="Endereco" required>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Secretário:</label>
             <select name="SecretarioId">
                 <option value="">Nenhum</option>
@@ -51,11 +52,9 @@
                 }
             </select>
         </div>
-</div>
-
-<!-- Botões -->
-<div class="d-flex justify-content-end gap-2">
-    <input type="submit" class="btn btn-outline-info" value="CADASTRAR">
-</div>
-</form>
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+            <input type="submit" class="btn btn-info" value="CADASTRAR">
+        </div>
+    </form>
 </div>

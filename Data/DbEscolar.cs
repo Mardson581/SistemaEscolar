@@ -60,11 +60,11 @@ public class DbEscolar : DbContext
 
         // Populando o banco de dados para teste
         modelBuilder.Entity<Diretor>().HasData(
-            new Diretor { UsuarioId = 1, Nome = "Dezani", Telefone = "(17)91234-5678", Email = "dezani@email.com", Senha = "12345678" }
+            new Diretor { UsuarioId = 1, Nome = "Dezani", Telefone = "(17)91234-5678", Email = "dezani@email.com", Senha = "12345678", Nascimento = new DateOnly() }
         );
 
         modelBuilder.Entity<Secretario>().HasData(
-            new Secretario { UsuarioId = 2, Nome = "Dezani", Telefone = "(17)91234-5678", Email = "dezani@email.com", Senha = "12345678" }
+            new Secretario { UsuarioId = 2, Nome = "Dezani", Telefone = "(17)91234-5678", Email = "dezani@email.com", Senha = "12345678", Nascimento = new DateOnly() }
         );
 
         modelBuilder.Entity<Municipio>().HasData(

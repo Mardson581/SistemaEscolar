@@ -1,4 +1,4 @@
-@model IEnumerable<SistemaEscolar.Models.Diretor>;
+@model SistemaEscolar.Models.Diretor;
 @{
   Layout = "~/Views/Shared/_ListarLayout.cshtml";
   ViewBag.Title = "Diretor";
@@ -8,11 +8,9 @@
   <link rel="stylesheet" href="/css/listaDiretor.css">
 }
 
-@foreach (var diretor in Model)
-{
-  <a href="/diretor/editar/@diretor.UsuarioId" class="list-link">@diretor.Nome</a>
+@if (Model == null) {
+    <p style="text-align: center">Nenhum diretor foi designado ainda! Você pode cadastrar um novo diretor ou designar algum já cadastrado</p>
 }
-
-@if (Model.Count() == 0) {
-    <p style="text-align: center">Nenhum diretor foi cadastrado ainda!</p>
+else {
+    <a href="@ViewBag.UrlBase/diretor/editar/@Model.UsuarioId" class="list-link">@Model.Nome</a>
 }

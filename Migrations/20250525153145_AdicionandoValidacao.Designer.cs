@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaEscolar.Data;
 
@@ -10,9 +11,11 @@ using SistemaEscolar.Data;
 namespace SistemaEscolar.Migrations
 {
     [DbContext(typeof(DbEscolar))]
-    partial class DbEscolarModelSnapshot : ModelSnapshot
+    [Migration("20250525153145_AdicionandoValidacao")]
+    partial class AdicionandoValidacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.15");
@@ -186,9 +189,6 @@ namespace SistemaEscolar.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("Nascimento")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -219,9 +219,6 @@ namespace SistemaEscolar.Migrations
                 {
                     b.HasBaseType("SistemaEscolar.Models.Usuario");
 
-                    b.Property<long>("EscolaId")
-                        .HasColumnType("INTEGER");
-
                     b.HasDiscriminator().HasValue("Diretor");
 
                     b.HasData(
@@ -229,11 +226,9 @@ namespace SistemaEscolar.Migrations
                         {
                             UsuarioId = 1L,
                             Email = "dezani@email.com",
-                            Nascimento = new DateOnly(1, 1, 1),
                             Nome = "Dezani",
                             Senha = "12345678",
-                            Telefone = "(17)91234-5678",
-                            EscolaId = 0L
+                            Telefone = "(17)91234-5678"
                         });
                 });
 
@@ -255,7 +250,6 @@ namespace SistemaEscolar.Migrations
                         {
                             UsuarioId = 2L,
                             Email = "dezani@email.com",
-                            Nascimento = new DateOnly(1, 1, 1),
                             Nome = "Dezani",
                             Senha = "12345678",
                             Telefone = "(17)91234-5678"
@@ -341,7 +335,8 @@ namespace SistemaEscolar.Migrations
 
             modelBuilder.Entity("SistemaEscolar.Models.Diretor", b =>
                 {
-                    b.Navigation("Escola");
+                    b.Navigation("Escola")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaEscolar.Models.Secretario", b =>
