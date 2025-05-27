@@ -22,6 +22,7 @@ public class AlunoController : Controller
                 a.Turma.EscolaId == escolaId
             );
         ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
+        ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId);
         ViewBag.NomeEscola = 
             db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome +
             " - " +
@@ -39,6 +40,7 @@ public class AlunoController : Controller
                 t.EscolaId == escolaId
             );
         ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
+        ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId);
         return View(turmas);
     }
 
@@ -52,6 +54,7 @@ public class AlunoController : Controller
             return NotFound();
 
         ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
+        ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId);
         ViewBag.MunicipioId = municipioId;
         ViewBag.EscolaId = escolaId;
 
@@ -65,6 +68,7 @@ public class AlunoController : Controller
         db.SaveChanges();
         
         ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
+        ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId);
         ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome;
         return Redirect($"/municipio/{municipioId}/escola/{escolaId}/aluno/");
     }
@@ -79,6 +83,7 @@ public class AlunoController : Controller
         db.SaveChanges();
         
         ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{escolaId}";
+        ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId);
         ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome;
         return Redirect($"/municipio/{municipioId}/escola/{escolaId}/aluno/");
     }

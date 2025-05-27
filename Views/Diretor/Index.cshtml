@@ -14,3 +14,8 @@
 else {
     <a href="@ViewBag.UrlBase/diretor/editar/@Model.UsuarioId" class="list-link">@Model.Nome</a>
 }
+
+@section Buttons {
+  <a href="/municipio/@ViewBag.Escola.MunicipioId/escola/@ViewBag.Escola.IdEscola/diretor/cadastrar" class="btn btn-info">CADASTRAR NOVO DIRETOR</a>
+  <a href="/municipio/@ViewBag.Escola.MunicipioId/escola/@ViewBag.Escola.IdEscola/diretor/designar" class="btn btn-success">DESIGNAR DIRETOR</a>
+}

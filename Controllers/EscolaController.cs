@@ -5,7 +5,7 @@ using SistemaEscolar.Models;
 
 namespace SistemaEscolar.Controllers;
 
-[Route("/municipio/{idMunicipio:int}/escola/{idEscola}/{action?}")]
+[Route("/municipio/{idMunicipio:int}/escola/{action?}/{idEscola:int?}/")]
 public class EscolaController : Controller
 {
     private DbEscolar db;

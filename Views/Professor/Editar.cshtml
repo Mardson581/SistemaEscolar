@@ -1,4 +1,4 @@
-@model SistemaEscolar.Models.Diretor;
+@model SistemaEscolar.Models.Professor;
 
 @{
     Layout = "~/Views/Shared/_CadastrarLayout.cshtml";
@@ -9,7 +9,7 @@
 }
 
 <div class="container text-center my-4">
-    <h1 class="fw-bold text-uppercase">Editar Cadastro de Diretor</h1>
+    <h1 class="fw-bold text-uppercase">Editar Cadastro de Professor</h1>
 </div>
 
 <div class="container form-container">
@@ -81,7 +81,8 @@
     <script>
         function deleteAluno() {
             let form = document.getElementsByTagName("form")[0];
-            form.action = "@ViewBag.UrlBase/diretor/deletar/@Model.UsuarioId/";
+            form.action = "/municipio/@ViewBag.MunicipioId/escola/@ViewBag.EscolaId/professor/deletar/@Model.UsuarioId/";
+            form.method = "POST";
             form.submit();
         }
         document.getElementById("deleteButton").addEventListener("click", deleteAluno);

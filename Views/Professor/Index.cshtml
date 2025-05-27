@@ -10,9 +10,13 @@
 
 @foreach (var professor in Model)
 {
-  <a href="/professor/editar/@professor.UsuarioId" class="list-link">@professor.Nome</a>
+  <a href="@ViewBag.UrlBase/professor/editar/@professor.UsuarioId" class="list-link">@professor.Nome</a>
 }
 
 @if (Model.Count() == 0) {
     <p style="text-align: center">Nenhum professor foi cadastrado ainda!</p>
+}
+
+@section Buttons {
+  <a href="@ViewBag.UrlBase/professor/cadastrar" class="btn btn-primary">CADASTRAR NOVO PROFESSOR</a>
 }

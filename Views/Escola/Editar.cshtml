@@ -9,7 +9,7 @@
 }
 
 <div class="container form-container">
-    <form action="/municipio/@ViewBag.IdMunicipio/escola/@ViewBag.Escola.IdEscola/editar" method="POST">
+    <form action="/municipio/@ViewBag.IdMunicipio/escola/editar/@ViewBag.Escola.IdEscola/" method="POST">
         <!-- Nome -->
         <div class="mb-3">
             <label class="form-label">Nome:</label>
@@ -94,7 +94,7 @@
 <script>
     function deleteEscola() {
       let form = document.getElementsByTagName("form")[0];
-      form.action = "/municipio/@ViewBag.IdMunicipio/escola/@ViewBag.Escola.IdEscola/deletar";
+      form.action = "/municipio/@ViewBag.IdMunicipio/escola/deletar/@ViewBag.Escola.IdEscola/";
       form.submit();
     }
     document.getElementById("deleteButton").addEventListener("click", deleteEscola);
