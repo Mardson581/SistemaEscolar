@@ -55,6 +55,11 @@
 
             <!-- A listagem dos dados vem aqui -->
             @RenderBody()
+
+            <div class="fixed-bottom d-flex container flex-row" style="gap: 10px; max-width: 100vw; align-items: center; justify-content: center; padding: 10px">
+                <a href="@ViewBag.UrlBase/editar" class="btn btn-warning">EDITAR CADASTRO DA ESCOLA</a>
+                @RenderSection("Buttons", required: false)
+            </div>
         </div>
     </div>
 
@@ -64,7 +69,7 @@
     <script>
         let menuTabs = document.getElementsByClassName("nav-link");
 
-        Object.values(menuTabs).forEach((t)=> {
+        Object.values(menuTabs).forEach((t) => {
             if (t.innerHTML.toUpperCase() == "@ViewBag.Title.ToUpper()") {
                 t.classList.add("active");
             }

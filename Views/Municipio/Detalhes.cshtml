@@ -24,6 +24,11 @@
     <h5 class="text-center fw-bold mb-3">Escolas em @ViewBag.Title</h5>
 
     <!-- A listagem dos dados vem aqui -->
+    @if (Model.Escolas.Count() == 0)
+    {
+        <p style="text-align: center">Nenhuma escola foi cadastrada ainda!</p>
+    }
+
     @foreach (var escola in Model.Escolas)
     {
         <a href="/municipio/@Model.IdMunicipio/escola/@escola.IdEscola/aluno" class="list-link">@escola.Nome</a>

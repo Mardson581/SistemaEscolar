@@ -1,0 +1,101 @@
+@model SistemaEscolar.Models.Escola;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/cadastroAlunos.css">
+}
+
+<div class="container form-container">
+    <form action="/municipio/@ViewBag.IdMunicipio/escola/@ViewBag.Escola.IdEscola/editar" method="POST">
+        <!-- Nome -->
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input type="text" class="form-control" placeholder="Nome da Escola" name="Nome" value="@Model.Nome" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">CEP:</label>
+            <input type="tel" class="form-control" pattern="[0-9]{5}\-[0-9]{3}" placeholder="xxxx-xxx" value="@Model.CEP" name="CEP"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" placeholder="(xx)9xxxx-xxxx"
+                pattern="\([0-9]{2}\) 9[0-9]{4}\-[0-9]{4}" name="Telefone" value="@Model.Telefone" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Endereço:</label>
+            <input type="text" class="form-control" placeholder="Endereço da Escola" value="@Model.Endereco" name="Endereco" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Secretário:</label>
+            <select name="SecretarioId">
+                <option value="">Nenhum</option>
+                @foreach (var secretario in ViewBag.Secretarios)
+                {
+                    @if (Model.SecretarioId == secretario.UsuarioId)
+                    {
+                        <option value="@secretario.UsuarioId" selected>@secretario.Nome</option>
+                    }
+                    else
+                    {
+                        <option value="@secretario.UsuarioId">@secretario.Nome</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Diretor:</label>
+            <select name="DiretorId">
+                <option value="">Nenhum</option>
+
+                @foreach (var diretor in ViewBag.Diretores)
+                {
+                    @if (Model.DiretorId == diretor.UsuarioId)
+                    {
+                        <option value="@diretor.UsuarioId" selected>@diretor.Nome</option>
+                    }
+                    else
+                    {
+                        <option value="@diretor.UsuarioId">@diretor.Nome</option>
+                    }
+                }
+            </select>
+        </div>
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-red" data-bs-toggle="modal" data-bs-target="#modalExcluir">EXCLUIR</button>
+            <input type="submit" class="btn btn-info" value="ATUALIZAR">
+        </div>
+    </form>
+</div>
+
+<!-- Modal Excluir -->
+<div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h5 class="modal-title fw-bold mb-3" id="modalExcluirLabel">Tem certeza que deseja excluir?</h5>
+      <h4 class="fw-bold mb-4">@Model.Nome</h4>
+      <p class="fw-semibold">Essa ação será permanente!</p>
+      <div class="mt-4">
+        <button id="deleteButton" type="button" class="btn btn-danger fw-bold px-4">EXCLUIR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function deleteEscola() {
+      let form = document.getElementsByTagName("form")[0];
+      form.action = "/municipio/@ViewBag.IdMunicipio/escola/@ViewBag.Escola.IdEscola/deletar";
+      form.submit();
+    }
+    document.getElementById("deleteButton").addEventListener("click", deleteEscola);
+  </script>
