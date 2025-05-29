@@ -1,0 +1,50 @@
+@model IEnumerable<SistemaEscolar.Models.Professor>;
+@{
+    Layout = "~/Views/Shared/_CadastrarLayout.cshtml";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/cadastroAlunos.css">
+}
+
+<div class="container text-center my-4">
+    <h1 class="fw-bold text-uppercase">Criar Cadastro de Diretor</h1>
+</div>
+
+<div class="container form-container">
+    <form action="@ViewBag.UrlBase/turma/cadastrar" method="POST">
+        <!-- Nome -->
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input type="text" placeholder="Nome da turma" class="form-control" name="Nome">
+        </div>
+
+        <!-- Data de nascimento -->
+        <div class="mb-3">
+            <label class="form-label">Ano:</label>
+            <input type="number" class="form-control" placeholder="Ano de criação da turma" name="Ano">
+        </div>
+
+        <!-- Lista de professores (pode escolher mais de um) -->
+        <label class="form-label">Professores:</label>
+        <div class="mb-3 d-flex justify-content-center gap-2">
+            @if (Model.Count() == 0)
+            {
+                <p>Nenhum professor foi cadastrado ainda!</p>
+            }
+            else
+            {
+                foreach (var professor in Model)
+                {
+                    <input type="checkbox" id="prof-@professor.UsuarioId" name="ProfessorId" value="@professor.UsuarioId">
+                    <label for="prof-@professor.UsuarioId">@professor.Nome</label>
+                }
+            }
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+            <input type="submit" class="btn btn-info" value="CADASTRAR">
+        </div>
+    </form>
+</div>

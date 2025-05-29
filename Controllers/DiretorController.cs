@@ -19,6 +19,7 @@ public class DiretorController : Controller
     {
         Diretor? diretor = db.Diretores
             .FirstOrDefault(d => d.EscolaId == idEscola);
+
         ViewBag.UrlBase = $"/municipio/{idMunicipio}/escola/{idEscola}";
         ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == idEscola);
         ViewBag.NomeEscola =
@@ -56,6 +57,8 @@ public class DiretorController : Controller
         IEnumerable<Diretor> diretores = db.Diretores
             .Where(d => d.Escola == null);
 
+        ViewBag.DiretorAtual = db.Diretores.FirstOrDefault(d => d.EscolaId == idEscola);
+
         ViewBag.NomeEscola = db.Escolas.First(e => e.IdEscola == idEscola).Nome;
         ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == idEscola);
         ViewBag.NomeMunicipio = db.Municipios.FirstOrDefault(m => m.IdMunicipio == idMunicipio).Nome;
@@ -81,20 +84,19 @@ public class DiretorController : Controller
             {
                 diretor.EscolaId = idEscola;
                 escola.DiretorId = idDiretor;
-                db.SaveChanges();
             }
         }
         else
         {
-            Console.WriteLine("AAAAAAAAAAAAAAAAAAAA: " + escola.Diretor.Nome);
-            if (escola.Diretor != null)
-            {
-                escola.Diretor.EscolaId = null;
-            }
+            Diretor? diretor = db.Diretores.FirstOrDefault(d => d.EscolaId == idEscola);
 
+            if (diretor == null)
+                return NotFound();
+
+            diretor.EscolaId = null;
             escola.DiretorId = null;
-            db.SaveChanges();
         }
+        db.SaveChanges();
 
         ViewBag.UrlBase = $"/municipio/{idMunicipio}/escola/{idEscola}";
         ViewBag.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == idEscola);
@@ -104,9 +106,9 @@ public class DiretorController : Controller
     }
 
     [HttpPost]
-    public ActionResult Deletar(long idMunicipio, long idEscola, long idDiretor)
+    public ActionResult Deletar(long idMunicipio, long idEscola, long id)
     {
-        db.Diretores.Remove(db.Diretores.FirstOrDefault(d => d.UsuarioId == idDiretor));
+        db.Diretores.Remove(db.Diretores.FirstOrDefault(d => d.UsuarioId == id));
         db.SaveChanges();
 
         ViewBag.UrlBase = $"/municipio/{idMunicipio}/escola/{idEscola}";

@@ -51,7 +51,7 @@ public class EscolaController : Controller
         ViewBag.Secretarios = db.Secretarios.ToList();
         ViewBag.Diretores = db.Diretores
             .Include(e => e.Escola)
-            .Where(e => e.Escola == null);
+            .Where(d => d.Escola == null || d.EscolaId == idEscola);
         ViewBag.Escola = escola;
         ViewBag.IdMunicipio = idMunicipio;
         ViewBag.Title = db.Municipios.First(m => m.IdMunicipio == idMunicipio).Nome;
@@ -65,6 +65,25 @@ public class EscolaController : Controller
         escola.IdEscola = idEscola;
         escola.MunicipioId = idMunicipio;
         db.Escolas.Update(escola);
+
+        if (escola.DiretorId != null)
+        {
+            Diretor? diretor = db.Diretores.FirstOrDefault(d => d.UsuarioId == escola.DiretorId);
+            
+            if (diretor != null)
+            {
+                db.Diretores.Update(diretor);
+                diretor.EscolaId = escola.IdEscola;
+            }
+        }
+        else
+        {
+            Diretor? diretor = db.Diretores.FirstOrDefault(d => d.EscolaId == escola.IdEscola);
+            db.Diretores.Update(diretor);
+            diretor.EscolaId = null;
+            escola.DiretorId = null;
+        }
+
         db.SaveChanges();
         return Redirect($"/municipio/{idMunicipio}/escola/{idEscola}/aluno");
     }

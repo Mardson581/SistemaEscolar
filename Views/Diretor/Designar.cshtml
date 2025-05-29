@@ -15,6 +15,11 @@
         <div class="mb-3">
             <label class="form-label">Diretor:</label>
             <select name="idDiretor" id="idDiretor">
+                @if (ViewBag.DiretorAtual != null)
+                {
+                    <option value="@ViewBag.DiretorAtual.UsuarioId" selected>@ViewBag.DiretorAtual.Nome</option>
+                }
+
                 <option value="">Nenhum</option>
                 @foreach (var diretor in Model)
                 {
