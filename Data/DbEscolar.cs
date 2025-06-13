@@ -5,7 +5,7 @@ namespace SistemaEscolar.Data;
 
 public class DbEscolar : DbContext
 {
-    public DbEscolar(DbContextOptions options) : base(options) { }
+    public DbEscolar(DbContextOptions<DbEscolar> options) : base(options) { }
 
     public DbSet<Aluno> Alunos { get; set; }
     public DbSet<Professor> Professores { get; set; }

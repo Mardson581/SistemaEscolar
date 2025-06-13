@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaEscolar.Data;
@@ -5,6 +6,7 @@ using SistemaEscolar.Models;
 
 namespace SistemaEscolar.Controllers;
 
+[Authorize]
 [Route("/municipio/{idMunicipio:int}/escola/{action?}/{idEscola:int?}/")]
 public class EscolaController : Controller
 {
