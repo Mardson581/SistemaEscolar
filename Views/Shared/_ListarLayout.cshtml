@@ -44,10 +44,11 @@
                 <div class="col-12 col-md-2">
                     <label for="search" class="form-label fw-bold text-white">Pesquisa:</label>
                 </div>
-                <div class="col-12 col-md-10 d-flex align-items-center">
-                    <input type="text" class="form-control w-100" id="search" placeholder="Digite o nome...">
-                    <span class="search-icon-outside">🔍</span>
-                </div>
+                <form class="col-12 col-md-10 d-flex align-items-center" method="GET" id="searchForm">
+                    <input type="text" class="form-control w-100" name="search" id="search"
+                        placeholder="Digite o nome...">
+                    <span onclick="search()" class="search-icon-outside">🔍</span>
+                </form>
             </div>
 
             <!-- Title -->
@@ -56,17 +57,34 @@
             <!-- A listagem dos dados vem aqui -->
             @RenderBody()
 
-            <div class="fixed-bottom d-flex container flex-row" style="gap: 10px; max-width: 100vw; align-items: center; justify-content: center; padding: 10px">
-                <a href="/municipio/@ViewBag.Escola.MunicipioId/escola/editar/@ViewBag.Escola.IdEscola" class="btn btn-warning">EDITAR CADASTRO DA ESCOLA</a>
+            <div class="fixed-bottom d-flex container flex-row"
+                style="gap: 10px; max-width: 100vw; align-items: center; justify-content: center; padding: 10px">
+                <a href="/municipio/@ViewBag.Escola.MunicipioId/escola/editar/@ViewBag.Escola.IdEscola"
+                    class="btn btn-warning">EDITAR CADASTRO DA ESCOLA</a>
                 @RenderSection("Buttons", required: false)
+                <div class="icon-exit"></div>
+                <a href="/logout" style="text-decoration: none; color: #003377;" title="Sair da conta">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                        <path fill-rule="evenodd"
+                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                    </svg>
+                </a>
             </div>
         </div>
+    </div>
     </div>
 
     @RenderSection("Scripts", required: false)
 
     <!-- Script para deixar a tab certa ativa -->
     <script>
+        function search() {
+            let searchForm = document.getElementById("searchForm");
+            searchForm.submit();
+        }
         let menuTabs = document.getElementsByClassName("nav-link");
 
         Object.values(menuTabs).forEach((t) => {

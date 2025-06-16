@@ -7,6 +7,13 @@
 }
 
 <div class="login-container">
+  @if (ViewBag.Message != null)
+  {
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <p style="text-align: center; margin: 0 !important">@ViewBag.Message</p>
+    </div>
+  }
+
   <div class="login-title">Login</div>
   <div class="login-subtitle">Entre na sua conta</div>
   <form action="/login" method="post">

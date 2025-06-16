@@ -14,10 +14,10 @@
         <div class="col-12 col-md-2">
             <label for="search" class="form-label fw-bold text-white">Pesquisa:</label>
         </div>
-        <div class="col-12 col-md-10 d-flex align-items-center">
-            <input type="text" class="form-control w-100" id="search" placeholder="Digite o nome...">
-            <span class="search-icon-outside">🔍</span>
-        </div>
+        <form class="col-12 col-md-10 d-flex align-items-center" method="GET" id="searchForm">
+            <input type="text" class="form-control w-100" name="search" id="search" placeholder="Digite o nome...">
+            <span onclick="search()" class="search-icon-outside">🔍</span>
+        </form>
     </div>
 
     <!-- Title -->
@@ -37,3 +37,10 @@
 
 <a style="max-width: fit-content; padding: 10px" href="/municipio/@Model.IdMunicipio/escola/cadastrar"
     class="fixed-bottom start-50 left-50 translate-middle btn btn-primary">CADASTRAR NOVA ESCOLA</a>
+
+<script>
+    function search() {
+        let searchForm = document.getElementById("searchForm");
+        searchForm.submit();
+    }
+</script>

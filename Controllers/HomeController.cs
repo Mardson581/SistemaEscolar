@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SistemaEscolar.Models;
 
 namespace SistemaEscolar.Controllers;
 
-[Route("/{action=Index}")]
+[Route("/{action=Login}")]
 public class HomeController : Controller
 {
     private SignInManager<Gestor> signInManager;
@@ -36,10 +37,52 @@ public class HomeController : Controller
             }
             else
             {
-                return Unauthorized("A senha é inválida!");
+                ViewBag.Message = "A senha é inválida!";
+                return View();
             }
         }
 
-        return Unauthorized("O email é inválido!");
+        ViewBag.Message = "O email é inválido!";
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await signInManager.SignOutAsync();
+        return RedirectToAction("Login");
+    }
+
+    [HttpGet]
+    public IActionResult Cadastrar()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Cadastrar(Gestor gestor, string password)
+    {
+        gestor.NormalizedEmail = gestor.Email.ToUpper();
+        gestor.PasswordHash = new PasswordHasher<Gestor>().HashPassword(gestor, password);
+        
+        var result = await userManager.CreateAsync(gestor);
+        if (result.Succeeded)
+        {
+            await signInManager.SignInAsync(gestor, true);
+            return RedirectToAction("index", "municipio");
+        }
+
+        return Unauthorized();
+    }
+
+    [Route("/erro")]
+    public IActionResult Erro()
+    {
+        return View();
     }
 }

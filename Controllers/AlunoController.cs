@@ -16,7 +16,7 @@ public class AlunoController : Controller
     {
         this.db = context;
     }
-    public ActionResult Index(long municipioId, long escolaId)
+    public ActionResult Index(long municipioId, long escolaId, string? search)
     {
         IEnumerable<Aluno> alunos = 
             db.Alunos.Where(a => 
@@ -28,8 +28,12 @@ public class AlunoController : Controller
         ViewBag.NomeEscola = 
             db.Municipios.FirstOrDefault(m => m.IdMunicipio == municipioId).Nome +
             " - " +
-            db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId).Nome;            ;
+            db.Escolas.FirstOrDefault(e => e.IdEscola == escolaId).Nome;
 
+        if (search != null)
+        {
+            alunos = alunos.Where(a => a.Nome.ToLower().Contains(search.ToLower()));
+        }
         return View(alunos);
     }
 

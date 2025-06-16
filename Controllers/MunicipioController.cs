@@ -26,12 +26,22 @@ public class MunicipioController : Controller
         return View(municipios);
     }
 
-    public ActionResult Detalhes(long id)
+    public ActionResult Detalhes(long id, string? search)
     {
-        Municipio municipio = 
-            db.Municipios
-            .Include(m => m.Escolas)
-            .FirstOrDefault(m => m.IdMunicipio == id);
+        Municipio? municipio;
+
+        if (search == null)
+        {
+            municipio = db.Municipios
+                .Include(m => m.Escolas)
+                .FirstOrDefault(m => m.IdMunicipio == id);
+        }
+        else
+        {
+            municipio = db.Municipios
+                .Include(m => m.Escolas.Where(e => e.Nome.ToLower().Contains(search.ToLower())))
+                .FirstOrDefault(m => m.IdMunicipio == id);
+        }
 
         if (municipio == null) {
             return RedirectToAction("Index");
@@ -39,6 +49,8 @@ public class MunicipioController : Controller
 
         ViewBag.Title = municipio.Nome;
         ViewBag.IdMunicipio = id;
+        ViewBag.Search = search;
+
         return View(municipio);
     }
 

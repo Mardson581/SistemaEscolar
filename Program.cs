@@ -26,6 +26,7 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 builder.Services.ConfigureApplicationCookie(options => {
     options.LoginPath = "/login";
+    options.LogoutPath = "/logout";
 });
 
 builder.Services.AddSession();
@@ -35,6 +36,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
 app.UseSession();
+
+app.UseExceptionHandler("/erro");
+app.UseStatusCodePagesWithReExecute("/erro");
 
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();

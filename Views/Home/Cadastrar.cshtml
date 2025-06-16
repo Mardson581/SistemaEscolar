@@ -1,0 +1,45 @@
+@{
+    Layout = "~/Views/Shared/_CadastrarLayout.cshtml";
+}
+
+@section CSS {
+    <link rel="stylesheet" href="/css/cadastroAlunos.css">
+}
+
+<div class="container text-center my-4">
+    <h1 class="fw-bold text-uppercase">Criar Cadastro de Gestor</h1>
+</div>
+
+<div class="container form-container">
+    <form action="/cadastrar" method="POST">
+        <!-- Nome -->
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input type="text" placeholder="Nome do Gestor" class="form-control" name="UserName">
+        </div>
+
+        <!-- Telefone -->
+        <div class="mb-3">
+            <label class="form-label">Telefone:</label>
+            <input type="tel" class="form-control" placeholder="(xx)9xxxx-xxxx"
+                pattern="\([0-9]{2}\) 9[0-9]{4}\-[0-9]{4}" name="PhoneNumber">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" class="form-control" placeholder="usuario@email.com" name="Email">
+        </div>
+
+        <!-- Senha -->
+        <div class="mb-3">
+            <label class="form-label">Senha:</label>
+            <input type="password" class="form-control" placeholder="Mínimo 8 caracteres" name="Password">
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex justify-content-end gap-2">
+            <input type="submit" class="btn btn-info" value="CADASTRAR">
+        </div>
+    </form>
+</div>
