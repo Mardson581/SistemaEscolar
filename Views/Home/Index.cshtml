@@ -1,0 +1,30 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS {
+  <link rel="stylesheet" href="/css/login.css">
+
+  <style>
+    .logo {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+  </style>
+}
+
+<div class="container">
+    <div class="container flex-column gap-4">
+        <h1 style="max-width: 15em; color: white">Bem-vindo ao GED<br>
+            <h3 style="color: white; text-align: center; width: 60%">Sua plataforma completa para gerenciar alunos, professores, turmas e municípios com eficiência e simplicidade.</h3>
+
+            <div class="buttons-div">
+                <a style="margin-right: 15px" class="btn btn-light btn-lg"  href="/login">Fazer Login</a>
+                <a class="btn btn-light btn-lg"  href="/cadastrar">Criar Conta</a>
+            </div>
+        </h1>
+    </div>
+
+    <img style="max-height: 50vh" src="/images/home.png" alt="CDC" title="Foto de CDC: https://www.pexels.com/pt-br/foto/pessoas-escola-sala-quarto-3992949/">
+</div>

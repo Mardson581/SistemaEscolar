@@ -5,7 +5,7 @@ using SistemaEscolar.Models;
 
 namespace SistemaEscolar.Controllers;
 
-[Route("/{action=Login}")]
+[Route("/{action=Index}")]
 public class HomeController : Controller
 {
     private SignInManager<Gestor> signInManager;
