@@ -74,7 +74,6 @@ public class TurmaController : Controller
     [HttpGet]
     public IActionResult Editar(long municipioId, long idEscola, long id)
     {
-        Console.WriteLine("ID---------------- " + id);
         Turma? turma = db.Turmas
             .Include(t => t.Professores)
             .FirstOrDefault(t => t.IdTurma == id);
@@ -82,35 +81,40 @@ public class TurmaController : Controller
         if (turma != null)
         {
             ViewBag.Professores = db.Professores.ToList();
-            ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{idEscola}/turma/editar/{id}";
+            ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{idEscola}";
             return View(turma);
         }
         return NotFound();
     }
 
     [HttpPost]
-    public IActionResult Editar(long municipioId, long idEscola, long[] professorId, Turma turma)
+    public IActionResult Editar(long municipioId, long idEscola, long[] professorId, long id, Turma turma)
     {
         Escola? escola = db.Escolas.FirstOrDefault(e => e.IdEscola == idEscola);
-        db.Turmas.Update(turma);
 
         if (escola == null)
             return NotFound();
 
-        if (escola.MunicipioId == municipioId)
-            turma.EscolaId = escola.IdEscola;
-        else
+        if (escola.MunicipioId != municipioId)
             return NotFound();
+        
+        Turma? turmaExistente = db.Turmas
+            .Include(t => t.Professores)
+            .FirstOrDefault(t => t.IdTurma == id && t.EscolaId == idEscola);
 
-        if (turma.Professores == null)
-            turma.Professores = new List<Professor>();
-        foreach (long id in professorId)
+        if (turmaExistente == null)
+            return NotFound();
+        turmaExistente.Nome = turma.Nome;
+        turmaExistente.Ano = turma.Ano;
+
+        turmaExistente.Professores.Clear();
+        foreach (long _id in professorId)
         {
-            Professor? professor = db.Professores.FirstOrDefault(p => p.UsuarioId == id);
+            Professor? professor = db.Professores.FirstOrDefault(p => p.UsuarioId == _id);
 
             if (professor == null)
                 return NotFound();
-            turma.Professores.Add(professor);
+            turmaExistente.Professores.Add(professor);
         }
 
         db.SaveChanges();
