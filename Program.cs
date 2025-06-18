@@ -38,7 +38,7 @@ app.UseStaticFiles();
 app.UseSession();
 
 app.UseExceptionHandler("/erro");
-app.UseStatusCodePagesWithReExecute("/erro");
+//app.UseStatusCodePagesWithReExecute("/erro");
 
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();

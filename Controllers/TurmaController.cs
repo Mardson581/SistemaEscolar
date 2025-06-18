@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SistemaEscolar.Data;
 using SistemaEscolar.Models;
 
@@ -68,5 +69,51 @@ public class TurmaController : Controller
         ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{idEscola}";
         ViewBag.Escola = escola;
         return Redirect($"/municipio/{municipioId}/escola/{idEscola}/turma/");
+    }
+
+    [HttpGet]
+    public IActionResult Editar(long municipioId, long idEscola, long id)
+    {
+        Console.WriteLine("ID---------------- " + id);
+        Turma? turma = db.Turmas
+            .Include(t => t.Professores)
+            .FirstOrDefault(t => t.IdTurma == id);
+
+        if (turma != null)
+        {
+            ViewBag.Professores = db.Professores.ToList();
+            ViewBag.UrlBase = $"/municipio/{municipioId}/escola/{idEscola}/turma/editar/{id}";
+            return View(turma);
+        }
+        return NotFound();
+    }
+
+    [HttpPost]
+    public IActionResult Editar(long municipioId, long idEscola, long[] professorId, Turma turma)
+    {
+        Escola? escola = db.Escolas.FirstOrDefault(e => e.IdEscola == idEscola);
+        db.Turmas.Update(turma);
+
+        if (escola == null)
+            return NotFound();
+
+        if (escola.MunicipioId == municipioId)
+            turma.EscolaId = escola.IdEscola;
+        else
+            return NotFound();
+
+        if (turma.Professores == null)
+            turma.Professores = new List<Professor>();
+        foreach (long id in professorId)
+        {
+            Professor? professor = db.Professores.FirstOrDefault(p => p.UsuarioId == id);
+
+            if (professor == null)
+                return NotFound();
+            turma.Professores.Add(professor);
+        }
+
+        db.SaveChanges();
+        return Redirect($"/municipio/{municipioId}/escola/{idEscola}/turma");
     }
 }

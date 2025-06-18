@@ -50,6 +50,18 @@ public class AlunoController : Controller
         return View(turmas);
     }
 
+    [HttpPost]
+    public IActionResult Create(long municipioId, long escolaId, Aluno aluno)
+    {
+        Turma? turma = db.Turmas.FirstOrDefault(t => t.IdTurma == aluno.IdTurma);
+        if (turma == null)
+            return Unauthorized();
+        aluno.Turma = turma;
+        db.Alunos.Add(aluno);
+        db.SaveChanges();
+        return RedirectToAction("Index", "Aluno");
+    }
+
     [HttpGet]
     public ActionResult Editar(long municipioId, long escolaId, long id)
     {

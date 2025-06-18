@@ -20,6 +20,7 @@ public class DiretorController : Controller
     public ActionResult Index(long idMunicipio, long idEscola)
     {
         Diretor? diretor = db.Diretores
+            .Include(d => d.Escola)
             .FirstOrDefault(d => d.EscolaId == idEscola);
 
         ViewBag.UrlBase = $"/municipio/{idMunicipio}/escola/{idEscola}";
@@ -57,6 +58,7 @@ public class DiretorController : Controller
     public ActionResult Designar(long idMunicipio, long idEscola)
     {
         IEnumerable<Diretor> diretores = db.Diretores
+            .Include(d => d.Escola)
             .Where(d => d.Escola == null);
 
         ViewBag.DiretorAtual = db.Diretores.FirstOrDefault(d => d.EscolaId == idEscola);
@@ -90,12 +92,8 @@ public class DiretorController : Controller
         }
         else
         {
-            Diretor? diretor = db.Diretores.FirstOrDefault(d => d.EscolaId == idEscola);
-
-            if (diretor == null)
-                return NotFound();
-
-            diretor.EscolaId = null;
+            if (escola.Diretor != null)
+                escola.Diretor.EscolaId = null;
             escola.DiretorId = null;
         }
         db.SaveChanges();
@@ -123,4 +121,25 @@ public class DiretorController : Controller
         return Redirect($"/municipio/{idMunicipio}/escola/{idEscola}/diretor/");
     }
 
+    [HttpGet]
+    public ActionResult Editar(long idMunicipio, long idEscola, long id)
+    {
+        Diretor? diretor = db.Diretores
+            .FirstOrDefault(d => d.UsuarioId == id);
+
+        if (diretor == null)
+            return NotFound();
+        
+        return View(diretor);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(long idMunicipio, long idEscola, Diretor diretor)
+    {
+        db.Diretores.Update(diretor);
+        diretor.Escola = db.Escolas.FirstOrDefault(e => e.IdEscola == diretor.EscolaId);
+        db.SaveChanges();
+        
+        return RedirectToAction("Index", "Diretor");
+    }
 }
